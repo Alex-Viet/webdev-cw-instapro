@@ -104,9 +104,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
             setError(error.message);
           });
       } else {
-        const login = document.getElementById("login-input").value;
-        const name = document.getElementById("name-input").value;
-        const password = document.getElementById("password-input").value;
+        const login = document.getElementById("login-input").value.trim();
+        const name = document.getElementById("name-input").value.trim();
+        const password = document.getElementById("password-input").value.trim();
         if (!name) {
           alert("Введите имя");
           return;
@@ -118,6 +118,11 @@ export function renderAuthPageComponent({ appEl, setUser }) {
 
         if (!password) {
           alert("Введите пароль");
+          return;
+        }
+
+        if (password.length < 3) {
+          alert("Пароль должен быть не короче 3 символов");
           return;
         }
 
