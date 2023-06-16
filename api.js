@@ -1,7 +1,7 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
 
-const personalKey = "prod";  // /alex-viet/
+const personalKey = "alex-viet";
 const baseHost = "https://wedev-api.sky.pro/api";
 const postsHost = `${baseHost}/v1/${personalKey}/instapro`;
 
@@ -15,6 +15,29 @@ export function getPosts({ token }) {
     .then((response) => {
       if (response.status === 401) {
         throw new Error("Нет авторизации");
+      }
+
+      return response.json();
+    })
+    .then((responseData) => {
+      return responseData.posts;
+    });
+}
+
+export function addPost({ token, description, imageUrl }) {
+  return fetch(postsHost, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify({
+      description,
+      imageUrl,
+    })
+  })
+    .then((response) => {
+      if (response.status === 400) {
+        throw new Error("Ошибка: не переданы изображение, либо описание");
       }
 
       return response.json();

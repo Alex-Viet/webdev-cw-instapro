@@ -1,8 +1,10 @@
 import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
+
+let imagePostUrl = "";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
-    // TODO: Реализовать страницу добавления поста
     const appHtml = `
                 <div class="page-container">
                   <div class="header-container"></div>
@@ -29,9 +31,21 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     appEl.innerHTML = appHtml;
 
     document.getElementById("add-button").addEventListener("click", () => {
+      const description = document.querySelector(".textarea").value.trim();
+
+      if (!description) {
+        alert("Добавьте описание");
+        return;
+      }
+
+      if (!imagePostUrl) {
+        alert("Добавьте изображение");
+        return;
+      }
+
       onAddPostClick({
-        description: "Описание картинки",
-        imageUrl: "https://image.png",
+        description: description,
+        imageUrl: imagePostUrl,
       });
     });
   };
@@ -41,4 +55,15 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
+
+  const uploadImageContainer = appEl.querySelector(".upload-image-container");
+
+  if (uploadImageContainer) {
+    renderUploadImageComponent({
+      element: appEl.querySelector(".upload-image-container"),
+      onImageUrlChange(newImageUrl) {
+        imagePostUrl = newImageUrl;
+      },
+    });
+  }
 }
