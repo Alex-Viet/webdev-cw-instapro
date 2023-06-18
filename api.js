@@ -2,6 +2,7 @@ const personalKey = "alex-viet";
 const baseHost = "https://wedev-api.sky.pro/api";
 const postsHost = `${baseHost}/v1/${personalKey}/instapro`;
 
+// Отображение списка постов
 export function getPosts({ token }) {
   return fetch(postsHost, {
     method: "GET",
@@ -21,6 +22,7 @@ export function getPosts({ token }) {
     });
 }
 
+// Отображение постов конкретного пользователя
 export function getUserPosts({ id }) {
   return fetch(postsHost + "/user-posts/" + id, {
     method: "GET",
@@ -37,6 +39,7 @@ export function getUserPosts({ id }) {
     });
 }
 
+// Добавление поста
 export function addPost({ token, description, imageUrl }) {
   return fetch(postsHost, {
     method: "POST",
@@ -60,7 +63,18 @@ export function addPost({ token, description, imageUrl }) {
     });
 }
 
+// Удаление поста конкретного пользователя
+export function deletePost({ token, id }) {
+  return fetch(postsHost + "/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    }
+  })
+}
+
 // https://github.com/GlebkaF/webdev-hw-api/blob/main/pages/api/user/README.md#%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F
+// Регистрация нового пользователя
 export function registerUser({ login, password, name, imageUrl }) {
   return fetch(baseHost + "/user", {
     method: "POST",
@@ -78,6 +92,7 @@ export function registerUser({ login, password, name, imageUrl }) {
   });
 }
 
+// Авторизация пользователя
 export function loginUser({ login, password }) {
   return fetch(baseHost + "/user/login", {
     method: "POST",

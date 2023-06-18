@@ -1,6 +1,7 @@
-import { USER_POSTS_PAGE } from "../routes.js";
+import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, getToken } from "../index.js";
+import { deletePost } from "../api.js";
 
 export function renderPostsPageComponent({ appEl, userPosts }) {
 
@@ -20,12 +21,15 @@ export function renderPostsPageComponent({ appEl, userPosts }) {
                   <img class="post-image" src="${post.imageUrl}">
                 </div>
                 <div class="post-likes">
-                  <button data-post-id="${post.likes.id}" class="like-button">
-                    <img src="./assets/images/like-active.svg">
-                  </button>
-                  <p class="post-likes-text">
-                    Нравится: <strong>${post.likes.map(({ name: value }) => value).join(', ')}</strong>
-                  </p>
+                  <div class="likes">
+                    <button data-post-id="${post.likes.id}" class="like-button">
+                      <img src="./assets/images/like-active.svg">
+                    </button>
+                    <p class="post-likes-text">
+                      Нравится: <strong>${post.likes.map(({ name: value }) => value).join(', ')}</strong>
+                    </p>
+                  </div>
+                  <button data-post-id="${post.id}" class="delete-button">Удалить</button>
                 </div>
                 <p class="post-text">
                   <span class="user-name">${post.user.name}</span>
@@ -61,5 +65,22 @@ export function renderPostsPageComponent({ appEl, userPosts }) {
         userId: userEl.dataset.userId,
       });
     });
+  };
+
+  const deleteButtonElems = document.querySelectorAll(".delete-button");
+
+  for (const deleteButtonElem of deleteButtonElems) {
+    deleteButtonElem.addEventListener(("click"), (event) => {
+      event.stopPropagation();
+      const id = deleteButtonElem.dataset.postId;
+      deletePost({ token: getToken(), id })
+        .then(() => {
+          goToPage(POSTS_PAGE);
+        })
+        .catch((error) => {
+          console.error(error);
+          goToPage(POSTS_PAGE);
+        })
+    })
   }
 }
