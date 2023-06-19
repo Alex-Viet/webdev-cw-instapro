@@ -19,8 +19,8 @@
   src: url("./assets/fonts/stratosskyengweb-medium.woff2") format("woff2");
 }
 
-/* html {
-  /* скрывает скролбары в firefox */   /*   ВЕРНУТЬ???   */
+/* скрывает скролбары в firefox */
+html {
   scrollbar-width: none;
 } */
 
@@ -33,10 +33,10 @@ body {
   line-height: 18px;
 }
 
-/* скрывает скролбары в chrome */   /*   ВЕРНУТЬ???   */
-/* body::-webkit-scrollbar {
+/* скрывает скролбары в chrome */
+body::-webkit-scrollbar {
   display: none;
-} */
+}
 
 p {
   margin: 0;
