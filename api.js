@@ -1,3 +1,5 @@
+import { sanitizeHtml } from "./utils/utils.js";
+
 const personalKey = "alex-viet";
 const baseHost = "https://wedev-api.sky.pro/api";
 const postsHost = `${baseHost}/v1/${personalKey}/instapro`;
@@ -50,7 +52,7 @@ export function addPost({ token, description, imageUrl }) {
       Authorization: token,
     },
     body: JSON.stringify({
-      description,
+      description: sanitizeHtml(description),
       imageUrl,
     })
   })
@@ -112,9 +114,9 @@ export function registerUser({ login, password, name, imageUrl }) {
   return fetch(baseHost + "/user", {
     method: "POST",
     body: JSON.stringify({
-      login,
-      password,
-      name,
+      login: sanitizeHtml(login),
+      password: sanitizeHtml(password),
+      name: sanitizeHtml(name),
       imageUrl,
     }),
   }).then((response) => {
