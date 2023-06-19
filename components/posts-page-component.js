@@ -26,7 +26,7 @@ export function renderPostsPageComponent({ appEl, userPosts }) {
                       Нравится: <strong>${post.likes.map(({ name: value }) => value).join(', ')}</strong>
                     </p>
                   </div>
-                  <button data-post-id="${post.id}" class="delete-button">Удалить</button>
+                  $<button data-post-id="${post.id}" class="delete-button">Удалить</button>
                 </div>
                 <p class="post-text">
                   <span class="user-name">${post.user.name}</span>
