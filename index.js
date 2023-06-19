@@ -71,7 +71,7 @@ export const goToPage = (newPage, data) => {
       // Получение постов юзера из API
       page = LOADING_PAGE;
       renderApp();
-      return getUserPosts({ id: data.userId })
+      return getUserPosts({ token: getToken(), id: data.userId })
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
           posts = newPosts;
@@ -92,7 +92,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({

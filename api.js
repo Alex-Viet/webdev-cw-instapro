@@ -23,9 +23,12 @@ export function getPosts({ token }) {
 }
 
 // Отображение постов конкретного пользователя
-export function getUserPosts({ id }) {
+export function getUserPosts({ token, id }) {
   return fetch(postsHost + "/user-posts/" + id, {
     method: "GET",
+    headers: {
+      Authorization: token,
+    },
   })
     .then((response) => {
       if (response.status === 401) {
@@ -70,6 +73,36 @@ export function deletePost({ token, id }) {
     headers: {
       Authorization: token,
     }
+  })
+}
+
+// Поставить лайк
+export function like({ token, id }) {
+  return fetch(postsHost + "/" + id + "/like", {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  }).then((response) => {
+    if (response.status === 401) {
+      throw new Error("Поставить лайк могут только авторизованные пользователи");
+    }
+    return response.json();
+  })
+}
+
+// Убрать лайк
+export function dislike({ token, id }) {
+  return fetch(postsHost + "/" + id + "/dislike", {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  }).then((response) => {
+    if (response.status === 401) {
+      throw new Error("Поставить лайк могут только авторизованные пользователи");
+    }
+    return response.json();
   })
 }
 
