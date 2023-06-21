@@ -22,7 +22,7 @@
 /* скрывает скролбары в firefox */
 html {
   scrollbar-width: none;
-} */
+}
 
 body {
   margin: 0;
