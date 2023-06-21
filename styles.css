@@ -62,6 +62,10 @@
   margin-right: 10px;
 }
 
+.post-header-user {
+  display: none;
+}
+
 .post-image-container {
   margin-left: -20px;
   margin-right: -20px;
@@ -82,15 +86,30 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
-.like-button {
+.likes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.like-button,
+.delete-button {
   border: none;
   background-color: transparent;
   padding: 8px;
   padding-left: 0px;
   padding-bottom: 5px;
   cursor: pointer;
+}
+
+.delete-button {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px;
 }
 
 .user-name {
@@ -195,4 +214,35 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
+}
+
+.btn-up {
+  position: fixed;
+  right: 100px;
+  bottom: 50px;
+  cursor: pointer;
+  display: flex;
+  width: 60px;
+  height: 50px;
+  transition: opacity 0.15s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-up::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  background: transparent no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("./assets/images/up.svg");
+}
+
+.btn-up_hide {
+  display: none;
+}
+
+.btn-up_hiding {
+  opacity: 0;
+  transform: translateY(100px);
 }

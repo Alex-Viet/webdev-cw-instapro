@@ -18,9 +18,7 @@ export function renderHeaderComponent({ element }) {
           : ""
       }  
       </button>
-  </div>
-  
-`;
+  </div>`;
 
   element
     .querySelector(".add-or-login-button")
